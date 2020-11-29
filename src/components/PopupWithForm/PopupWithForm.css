@@ -1,0 +1,111 @@
+.popup {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s linear;
+  
+}
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.3s linear;
+}
+.popup__container {
+    max-width: 80%;
+    width: 430px;
+    
+    height: max-content;
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .popup__close {
+    background-image: url(../../images/exit-popup.png);
+  
+    background-color: initial;
+    background-position: center;
+    border: none;
+    width: 40.7px;
+    height: 40.7px;
+    position: absolute;
+    top: -35px;
+    right: -35px;
+  }
+  .popup__close:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  .popup__save {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    height: 64px;
+    max-width: 360px;
+    background: #2F71E5;
+    border-radius: 100px;
+    border: none;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+    
+    margin: 39px 35px 16px 35px;
+  }
+  .popup__save:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  .popup__text {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 28px;
+  }
+  .popup__click {
+ 
+    color: #2f71e5;
+   
+  }
+  .popup__click:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  .popup__title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 28px;
+    margin-left: 36px;
+  margin-top: 34px;
+  margin-bottom: 0px;
+  }
+
+  .popup__save_disabled {
+    background: #E6E8EB;
+    
+  }
+  @media screen and (max-width: 500px) {
+    .popup__close {
+      top: -40px;
+      right: 0px;
+    }
+  }

@@ -1,0 +1,91 @@
+.about {
+    max-width: 1440px;
+    display: flex;
+    margin: 80px auto 0px auto;
+  
+}
+.about__title {
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 46px;
+}
+.about__word {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+}
+.about__avatar {
+    width: 464px;
+    height: 464px;
+    margin-right: 56px;
+    margin-left: 104px;
+}
+.about__text {
+  max-width: 600px;
+}
+
+@media screen and (max-width: 1024px) {
+    .about__avatar {
+        width: 364px;
+        height: 364px;
+        margin-right: 32px;
+        margin-left: 75px;
+    }
+    .about__text {
+        max-width: 450px;
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+.about__avatar {
+    width: 232px;
+    height: 232px;
+    margin-right: 32px;
+    margin-left: 40px;
+}
+.about {
+    
+    margin: 40px auto 0px auto;
+    align-items: center;
+}
+.about__title {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 12px;
+    margin-top: 0px;
+   
+}
+.about__text {
+    max-width: 424px;
+    margin-right: 40px;
+   
+}
+.about__word {
+    margin-top: 0px;
+}
+}
+@media screen and (max-width: 500px) {
+    .about__text {
+        max-width: 288px;
+    align-items: center;
+    margin: 24px 16px 80px 16px;
+    }
+    .about__avatar {
+        width: 272px;
+        height: 272px;
+        margin: 0px 24px;
+    
+    }
+    .about {
+        flex-direction: column;
+    }
+
+    .about__title {
+        margin-bottom: 16px;
+    }
+}

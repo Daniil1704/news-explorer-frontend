@@ -1,0 +1,210 @@
+.news-card {
+    /* max-width: 400px; */
+    width: 100%;
+    border-radius: 16px;
+    background: #fff;
+    position: relative;
+}
+.news-card__resours {
+    max-width: 89px;
+    font-family: "Roboto Slab","Arial",sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    color: #b6bcbf;
+    margin: 18px 0 24px 24px;
+
+}
+.news-card__about {
+    max-width: 352px;
+    font-weight: 400;
+    color: #1a1b22;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    height: 67px;
+    font-family: "Roboto","Arial",sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+    
+    margin: 16px auto 0px auto;
+    -webkit-line-clamp: 3;
+}
+.news-card__title {
+    max-width: 352px;
+    font-weight: 400;
+    color: #1a1b22;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    font-family: "Roboto Slab","Arial",sans-serif;
+    font-size: 26px;
+    line-height: 30px;
+    margin: 12px auto 0px auto;
+    -webkit-line-clamp: 2;
+}
+.news-card__date {
+    max-width: 128px;
+    font-family: "Sourse Sans Pro","Arial",sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    align-items: center;
+    color: #b6bcbf;
+    margin: 20px 0 0 24px;
+}
+.news-card__link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+.news-card__button {
+    position: absolute;
+    top: 24px;
+    right:24px;
+    background-image: url(../../images/bookmark-normal.png);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.news-card__button:hover {
+    background-image: url(../../images/bookmark-dark.png);
+}
+.news-card__button:hover::before {
+    content: "Войдите, чтобы сохранять статьи";
+    width: 182px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background:#fff;
+    color: #000;
+    top: 0;
+    right: 45px;
+    border-radius: 10px;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+}
+
+.news-card__button:focus {
+    background-image: url(../../images/bookmark-blue.png);
+}
+.news-card__button_delete:hover::before {
+    content: "Убрать из сохранённых";
+    width: 159px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 14px;
+}
+.news-card__button_delete {
+    background-image: url(../../images/delete.png);
+}
+.news-card__button_delete:hover{
+    background-image: url(../../images/delete-dark.png);
+}
+.news-card__image {
+    
+    border-radius: 20px 20px 0px 0px;
+
+}
+
+
+.news-card__keyword {
+    display: none;
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    margin: 0;
+    font-family: "Roboto","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000;
+    justify-content: center;
+    width: 88px;
+    height: 40px;
+    background: #fff;
+    border-radius: 10px;
+}
+.news-card__keyword_active {
+    display: flex;
+    align-items: center;
+}
+@media screen and (max-width: 1258px) {
+ 
+    .news-card__image {
+    
+        width:224px ;
+        height:150px ;
+      
+      }
+  
+
+
+    .news-card__image {
+      width:224px ;
+      height:150px ;
+    }
+    
+    .news-card__button {
+        top: 8px;
+        right: 8px;
+    }
+    .news-card-list__button {
+        margin: 32px auto 0px auto;
+        width: 240px;
+    height: 56px;
+    }
+    .news-card__date {
+        margin: 16px 0px 0px 16px;
+    }
+    .news-card__title {
+        max-width: 192px;
+        font-size: 22px;
+        line-height: 24px;
+        -webkit-line-clamp: 3;
+    }
+    .news-card__about {
+        max-width: 192px;
+        height: 88px;
+        margin: 10px auto 0px auto;
+        -webkit-line-clamp: 4;
+    }
+    .news-card__resours {
+        margin: 12px 0px 16px 16px;
+    }
+    .news-card__keyword {
+        top: 8px;
+        left: 8px;
+    }
+}
+@media screen and (max-width: 500px) {
+.news-card__image {
+    width: 288px;
+    height: 196px;
+}
+.news-card__title {
+    max-width: 256px;
+    line-height: 26px;
+}
+.news-card__about {
+    max-width: 256px;
+}
+.news-card__button {
+    top: 16px;
+    right: 16px;
+}
+.news-card__keyword {
+    top: 16px;
+    left: 16px;
+}
+}

@@ -1,0 +1,15 @@
+body {
+  padding: 0px;
+  margin: 0px;
+
+}
+/* body, img, h2, div, nav, li{
+    border: 2px solid red;
+} */
+.bg {
+  background-image: url(../../images/bg.png);
+  margin: 0 auto;
+  max-width: 1440px;
+
+ 
+}
