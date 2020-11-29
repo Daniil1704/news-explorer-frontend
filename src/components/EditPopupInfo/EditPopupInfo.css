@@ -1,0 +1,25 @@
+.popup__title-info {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 43px auto 14px 36px;
+    color: #000000;
+}
+.popup__button-info {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    
+    color: #2F71E5;
+    margin-left: 36px;
+    margin-bottom: 51px;
+    text-align: start;
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+}
