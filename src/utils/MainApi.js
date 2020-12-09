@@ -1,4 +1,4 @@
-const URL_API = 'https://api.tsyrulnukov.students.nomoreparties.co'
+const URL_API = 'https://www.api.tsyda.students.nomoreparties.xyz'
 
 export const register = (email, password, name) => {
     return fetch(`${URL_API}/signup`, {
@@ -83,6 +83,8 @@ export function buildArticle(article, keyword) {
         title,
         source,
         url,
+        description,
+        publishedAt,
         urlToImage,
     } = article
 
@@ -95,8 +97,8 @@ export function buildArticle(article, keyword) {
         body: JSON.stringify({
             keyword: keyword,
             title,
-            text,
-            date,
+            text: `${description.toString() === "" ? 'Текст отсувствует' : description}`,
+            date: publishedAt,
             source: source.name,
             link: url,
             image: urlToImage || 'https://neuronsk.ru/upload/medialibrary/771/771dad7444a2937b6085360951e048b1.png'

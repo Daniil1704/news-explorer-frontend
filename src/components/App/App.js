@@ -9,9 +9,12 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import EditPopupRegister from '../EditPopupRegister/EditPopupRegister.js';
 import EditPopupLogin from '../EditPopupLogin/EditPopupLogin.js';
-// import EditPopupInfo from '../EditPopupInfo/EditPopupInfo.js';EditPopupMenu
+import EditPopupInfo from '../EditPopupInfo/EditPopupInfo.js';
+import { searchNewsApi } from '../../utils/NewsApi';
 import EditPopupMenu from '../EditPopupMenu/EditPopupMenu.js';
 import Preloader from '../Preloader/Preloader.js';
+import NotFoud from '../NotFoud/NotFoud.js';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import { CurrentUserContext } from '../../utils/context/CurrentUserContex.js';
 import {
   register,
@@ -28,23 +31,22 @@ function App() {
   const history = useHistory();
   const [currentUser, setCurrenUser] = useState({});
   const [articles, setArticles] = useState([]);
-  const [searchError, setSearchError] = useState(false);
-  const [myArticles, setMyArticles] = useState([]);
-  const [lengthMyArticles, setLengthMyArticles] = useState(0);
+  const [arrayArticles, setArrayArticles] = useState([]);
   const [keyword, setKeyword] = useState('');
+  const [lengthArticles, setLengthArticles] = useState(0);
   const [activeFlag, setActiveFlag] = useState(false);
   const [textErrorForm, setTextErrorForm] = useState('');
   const [loggedIn, setLoggedIn] = React.useState(false);
-  // const [textErrorForm, setTextErrorForm] = useState('');
   const [values, setValues] = useState({});
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isEditNotFound, setIsEditNotFound] = useState(false);
   const [isEditPopupLogin, setIsEditPopupLogin] = useState(false);
   const [isEditPopupRegister, setIsEditPopupRegister] = useState(false);
   const [isEditPopupInfo, setIsEditPopupInfo] = useState(false);
   const [isEditPopupMenu, setIsEditPopupMenu] = useState(false);
+  const [isEditPreloader, setIsEditPreloader] = useState(false);
   // ________________________________________________________Токен________________________________________________________________
 
   function getToken() {
@@ -59,6 +61,9 @@ function App() {
       setArticles(JSON.parse(localStorage.getItem('articles')));
     }
   }
+  React.useEffect(() => {
+    getToken();
+  }, [loggedIn]);
   // ___________________________________________________________________________________________________________________________________
 
 
@@ -67,6 +72,7 @@ function App() {
   function registerUser(email, password, name) {
     setIsLoading(true);
     register(email, password, name)
+
       .then((res) => {
         if (res) {
           closeAllPopups();
@@ -85,7 +91,7 @@ function App() {
 
   // ___________________________________________________________________________________________________________________________________
   // ________________________________________________________Авторизация________________________________________________________________
-  function authorizationLogin(email, password) {
+  function login(email, password) {
     setIsLoading(true);
     authorize(email, password)
       .then((res) => {
@@ -113,18 +119,30 @@ function App() {
         setIsLoading(false);
       });
   }
+
+  function exitAuth() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
+    setArticles([]);
+    setLoggedIn(false);
+    history.push('/');
+  }
   // ___________________________________________________________________________________________________________________________________
 
-  // ________________________________________________________Открытие попапов________________________________________________________________
+  // ________________________________________________________Карточки________________________________________________________________
+  React.useEffect(() => {
+    setKeyword(localStorage.getItem('keyword'));
+  }, [keyword]);
+
   function getSaveArticles() {
     getMyArticles()
       .then((res) => {
         if (res) {
-          setMyArticles(res);
-          setLengthMyArticles(res.length);
+          setArrayArticles(res);
+          setLengthArticles(res.length);
           setKeyword(res.keyword)
         } else {
-          setMyArticles([]);
+          setArrayArticles([]);
         }
       })
       .catch((err) => {
@@ -147,31 +165,65 @@ function App() {
     }
   }
 
-  function deleteArticle(article) {
+  function deleteArrArticle(article) {
     deleteArticle(article)
       .then((data) => {
-        const myArticleArray = myArticles.filter((i) => (i._id !== article._id));
-        setMyArticles(myArticleArray);
-        setLengthMyArticles(myArticleArray.length);
+        const myArticleArr = arrayArticles.filter((i) => (i._id !== article._id));
+        setArrayArticles(myArticleArr);
+        setLengthArticles(myArticleArr.length);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }
+
+  function searchNewsClick(keyword) {
+
+    setIsEditPreloader(true)
+
+    setArticles([]);
+    localStorage.removeItem('articles');
+    localStorage.removeItem('keyword');
+    setIsEditNotFound(false);
+
+
+    searchNewsApi(keyword)
+      .then((data) => {
+
+        localStorage.setItem('articles', JSON.stringify(data.articles));
+        localStorage.setItem('keyword', keyword);
+
+        setArticles(data.articles);
+        setKeyword(keyword);
+
+        if (data.articles.length === 0) {
+          setIsEditNotFound(true)
+        }
+      })
+      .catch((err) => {
+        console.log(err.status);
+        setIsEditNotFound(true);
+      })
+      .finally(() => setIsEditPreloader(false));
+  }
   // ___________________________________________________________________________________________________________________________________
 
-  // ________________________________________________________Открытие попапов________________________________________________________________
+  // ________________________________________________________Попапы________________________________________________________________
   function handleEditLoginClick() {
     setIsEditPopupLogin(true);
     setIsEditPopupMenu(false);
+    setIsEditPopupInfo(false);
   }
 
   function handleEditRegisterClick() {
     setIsEditPopupRegister(true);
+
+
   }
 
   function handleAddInfoClick() {
-    setIsEditPopupInfo(true);
+    setIsEditPopupInfo(false);
+
   }
   function handleEditMenuClick() {
     setIsEditPopupMenu(true);
@@ -185,14 +237,16 @@ function App() {
     }
     if (isEditPopupLogin) {
       setIsEditPopupLogin(false);
-
+      cleaningForm()
     }
     if (isEditPopupRegister) {
       setIsEditPopupRegister(false);
+      cleaningForm()
 
     }
     if (isEditPopupInfo) {
       setIsEditPopupInfo(false);
+
     }
   }
 
@@ -206,7 +260,6 @@ function App() {
       handleEditLoginClick();
       closeAllPopups();
     }
-
   }
 
   React.useEffect(() => {
@@ -231,6 +284,39 @@ function App() {
       document.removeEventListener('click', closeOverlay);
     }
   });
+
+  function handleValid(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+    setError({ ...error, [name]: e.target.validationMessage });
+    setIsValid(e.target.closest('form').checkValidity());
+  }
+  function cleaningForm() {
+    setValues({});
+    setIsValid(false);
+    setError({});
+  }
+  function updateArrArticles(article, keyword, arrayArticle) {
+
+    const myArrayArticle = arrayArticles.find((i) => {
+
+      if (arrayArticle) {
+        return i.title === arrayArticle.title && i.text === arrayArticle.text;
+      }
+      if (article) {
+        return i.title === article.title && i.text === article.description;
+      }
+
+    });
+
+    if (myArrayArticle) {
+      deleteArrArticle(myArrayArticle);
+    } else {
+      saveArticle(article, keyword);
+    }
+  }
+
   // ___________________________________________________________________________________________________________________________________
   return (
     <div className="page">
@@ -243,38 +329,73 @@ function App() {
                 onClose={closeAllPopups}
                 handleEditMenuClick={handleEditMenuClick}
                 handleEditLoginClick={handleEditLoginClick}
+                isEditPopupLogin={isEditPopupLogin}
+                isEditPopupRegister={isEditPopupRegister}
                 loggedIn={loggedIn}
+                exitAuth={exitAuth}
+
 
               >
 
               </Header>
               <SearchForm
-
+                EditSearchNews={searchNewsClick}
               >
 
               </SearchForm>
             </div>
             <Preloader
-
+              isOpen={isEditPreloader}
             >
             </Preloader>
-            {/* <NotFoud
+            <NotFoud
               isOpen={isEditNotFound}
-              searchError={searchError}
             >
-            </NotFoud> */}
-            <Main />
+            </NotFoud>
+            <Main
+              articles={articles}
+              saveArticles={arrayArticles}
+              keyword={keyword}
+              loggedIn={loggedIn}
+              setActiveFlag={setActiveFlag}
+              activeFlag={activeFlag}
+              updateArrArticles={updateArrArticles}
+              handleEditRegisterClick={handleEditRegisterClick}
+            >
+            </Main>
           </Route>
+
           <Route path="/saved-news">
-            <Header>
+            <Header
+              isOpen={isEditPopupMenu}
+              onClose={closeAllPopups}
+              handleEditMenuClick={handleEditMenuClick}
+              handleEditLoginClick={handleEditLoginClick}
+              isEditPopupLogin={isEditPopupLogin}
+              isEditPopupRegister={isEditPopupRegister}
+              loggedIn={loggedIn}
+              exitAuth={exitAuth}
+            >
 
             </Header>
-            <SavedNewsHeader>
+            <SavedNewsHeader
+              arrayArticles={arrayArticles}
+              lengthArticles={lengthArticles}
+            >
 
             </SavedNewsHeader>
-            <SavedNews>
+            <ProtectedRoute path="/saved-news"
+              loggedIn={loggedIn}
+              component={SavedNews}
 
-            </SavedNews>
+              handleEditMenuClick={handleEditMenuClick}
+              exitAuth={exitAuth}
+              arrayArticles={arrayArticles}
+              updateArrArticles={updateArrArticles}
+            >
+            </ProtectedRoute>
+
+
           </Route>
         </Switch>
         <Footer>
@@ -285,6 +406,11 @@ function App() {
             isOpen={isEditPopupRegister}
             onClose={closeAllPopups}
             replacementPopup={replacementPopup}
+            registerUser={registerUser}
+            error={error}
+            values={values}
+            handleValid={handleValid}
+            isValid={isValid}
           >
 
           </EditPopupRegister>
@@ -292,6 +418,11 @@ function App() {
             isOpen={isEditPopupLogin}
             onClose={closeAllPopups}
             replacementPopup={replacementPopup}
+            login={login}
+            error={error}
+            values={values}
+            handleValid={handleValid}
+            isValid={isValid}
           >
 
           </EditPopupLogin>
@@ -300,15 +431,20 @@ function App() {
             handleEditMenuClick={handleEditMenuClick}
             onClose={closeAllPopups}
             handleEditLoginClick={handleEditLoginClick}
-
+            loggedIn={loggedIn}
+            exitAuth={exitAuth}
           >
 
           </EditPopupMenu>
-          {/* <EditPopupInfo
-       
-        >
+          <EditPopupInfo
+            isOpen={isEditPopupInfo}
+            onClose={closeAllPopups}
+            handleEditLoginClick={handleEditLoginClick}
+            isEditPopupLogin={isEditPopupLogin}
 
-        </EditPopupInfo> */}
+          >
+
+          </EditPopupInfo>
         </section>
       </CurrentUserContext.Provider>
     </div>

@@ -43,7 +43,13 @@
         flex-direction: column;
         
     }
+    .navigation__image-exit {
+        margin-left: 10px;
+    }
     .header__mobile_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 100px;
         font-family: Roboto;
         font-style: normal;
@@ -90,7 +96,9 @@
         
         color:white;
     }
-    
+    .navigation__mobile_link-disable {
+        display: none;
+    }
     .header__mobile_button-dark-link {
         text-decoration: none;
     }

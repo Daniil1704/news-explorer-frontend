@@ -34,6 +34,7 @@
 }
 .news-card__title {
     max-width: 352px;
+    height: 60px;
     font-weight: 400;
     color: #1a1b22;
     display: -webkit-box;
@@ -42,11 +43,11 @@
     font-family: "Roboto Slab","Arial",sans-serif;
     font-size: 26px;
     line-height: 30px;
-    margin: 12px auto 0px auto;
+    margin: 12px auto 0px 24px;
     -webkit-line-clamp: 2;
 }
 .news-card__date {
-    max-width: 128px;
+    max-width: 135px;
     font-family: "Sourse Sans Pro","Arial",sans-serif;
     font-weight: 400;
     font-size: 18px;
@@ -73,10 +74,11 @@
     height: 40px;
     cursor: pointer;
 }
-.news-card__button:hover {
+.news-card__button:hover{
     background-image: url(../../images/bookmark-dark.png);
 }
-.news-card__button:hover::before {
+.news-card__button_no-saved:hover::before {
+    background-image: url(../../images/bookmark-dark.png);
     content: "Войдите, чтобы сохранять статьи";
     width: 182px;
     height: 40px;
@@ -95,7 +97,7 @@
     line-height: 12px;
 }
 
-.news-card__button:focus {
+.news-card__button_saved {
     background-image: url(../../images/bookmark-blue.png);
 }
 .news-card__button_delete:hover::before {
@@ -112,7 +114,8 @@
     background-image: url(../../images/delete-dark.png);
 }
 .news-card__image {
-    
+    width:400px ;
+    height:272px ;
     border-radius: 20px 20px 0px 0px;
 
 }
@@ -148,7 +151,9 @@
       
       }
   
-
+      .news-card__button:hover::before {
+        width: 166px;
+      }
 
     .news-card__image {
       width:224px ;
@@ -169,6 +174,7 @@
     }
     .news-card__title {
         max-width: 192px;
+        height: 75px;
         font-size: 22px;
         line-height: 24px;
         -webkit-line-clamp: 3;
@@ -192,6 +198,9 @@
     width: 288px;
     height: 196px;
 }
+.news-card__button:hover::before {
+    width: 182px;
+  }
 .news-card__title {
     max-width: 256px;
     line-height: 26px;
