@@ -39,7 +39,9 @@
     height: 64px;
     display: block;
 }
-
+.news-card-list__button_disabled {
+    display: none;
+  }
 .news-card-list__button:hover {
     transition: opacity 0.5s;
     opacity: 0.4;
@@ -49,6 +51,7 @@
     justify-content: center;
     grid-template-columns: repeat(auto-fit,224px);
     grid-gap: 8px;
+    max-width: 688px;
     }
 }
 @media screen and (max-width: 1024px) {

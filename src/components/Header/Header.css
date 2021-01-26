@@ -15,6 +15,9 @@
     color: white;
 }
 .header__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 100px;
     font-family: Roboto;
     font-style: normal;
@@ -34,6 +37,9 @@
     display: flex;
     margin-right: 105px;
   
+}
+.header__button_white-img {
+    margin-left: 10px;
 }
 .header__burger{
     display: none;
@@ -76,7 +82,7 @@
     font-size: 18px;
     line-height: 24px;
     border: 1px solid #000000;
-    width: 112px;
+    width: 176px;
     height: 48px;
     background: none;
     color: #000000;
@@ -131,7 +137,7 @@
     }
     .header__button_dark {
         font-size: 16px;
-        width: 100px;
+        
     height: 40px;
     margin-top: 14px;
     }

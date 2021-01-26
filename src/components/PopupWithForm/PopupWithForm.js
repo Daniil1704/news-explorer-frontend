@@ -6,11 +6,11 @@ function PopupWithForm(props) {
     return (
 
         <div className={`popup ${props.isOpen && 'popup_opened'}`}>
-            <form className="popup__container">
+            <form onSubmit={props.submit} className="popup__container" >
                 <button type="button" onClick={props.onClose} className="popup__close"></button>
                 <h2 className="popup__title">{props.title}</h2>
                 {props.children}
-                <button type="submit" className={`popup__save ${buttonDisabled}`}>{props.textButton}</button>
+                <button type="submit" className={buttonDisabled} >{props.textButton}</button>
                 <p className="popup__text">или <span className="popup__click" onClick={props.replacementPopup} >{props.click}</span></p>
             </form>
         </div>
